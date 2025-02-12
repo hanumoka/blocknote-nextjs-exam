@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-h1,
+/* h1,
 h2 {
   @apply leading-tight tracking-tight;
 }
@@ -21,7 +21,7 @@ p {
 
 section {
   @apply my-8;
-}
+} */
 
 /* :root {
   --foreground-rgb: 0, 0, 0;

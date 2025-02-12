@@ -1,10 +1,29 @@
+"use client";
+
 import Image from "next/image";
 import TabeOfContents from "./components/TabeOfContents";
 
+import TextareaAuthsize from "react-textarea-autosize";
+import Editor from "./components/Editor";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+
 export default function Home() {
+  const Editor = useMemo(
+    () => dynamic(() => import("./components/Editor"), { ssr: false }),
+    []
+  );
+
   return (
-    <main className="grid grid-cols-[10%_1fr_10%] lg:grid-cols-[15%_1fr_15%] my-20">
-      <TabeOfContents />
+    <main className="min-h-screen">
+      <div className="flex flex-col px-24 py-10 w-full">
+        <TextareaAuthsize
+          placeholder="Untitled"
+          className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+        />
+        <Editor onChange={() => {}} />
+      </div>
+      {/* <TabeOfContents />
       <article className="min-h-screen mx-auto max-w-[80ch]">
         <h1>Introducing SynapseGPT: The Next Generation AI Foundation Model</h1>
         <section>
@@ -178,7 +197,7 @@ export default function Home() {
             heights and build a better tomorrow.
           </p>
         </section>
-      </article>
+      </article> */}
     </main>
   );
 }
