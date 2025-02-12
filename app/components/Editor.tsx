@@ -24,6 +24,11 @@ const Editor: React.FC<EditorProps> = ({
     initialContent: initialContent
       ? (JSON.parse(initialContent) as PartialBlock[])
       : undefined,
+    uploadFile: async (file: File) => {
+      // const [res] = await supabase.storage.from('blocknote').upload(file.name, file)
+      // return res?.data?.url
+      return "https://mml.pstatic.net/www/mobile/edit/20250211_1095/upload_1739242956217z3HYk.png";
+    },
   });
 
   return (

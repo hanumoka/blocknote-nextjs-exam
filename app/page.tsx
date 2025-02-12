@@ -5,10 +5,24 @@ import TabeOfContents from "./components/TabeOfContents";
 
 import TextareaAuthsize from "react-textarea-autosize";
 import Editor from "./components/Editor";
+import Cover from "./components/Cover";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export default function Home() {
+  // const [coverUrl, setCoverUrl] = useState<String>(
+  //   "https://fastly.picsum.photos/id/909/200/300.jpg?hmac=jfLbR2FxyVpJjZ0VrwZWiPNfvXlOEQxNdoCE2uu4qlM"
+  // );
+
+  const [coverUrl, setCoverUrl] = useState<string>();
+
+  const enableCover = () => {
+    //캐싱이 되는것을 고려 해야 한다.
+    setCoverUrl(
+      "https://fastly.picsum.photos/id/909/200/300.jpg?hmac=jfLbR2FxyVpJjZ0VrwZWiPNfvXlOEQxNdoCE2uu4qlM"
+    );
+  };
+
   const Editor = useMemo(
     () => dynamic(() => import("./components/Editor"), { ssr: false }),
     []
@@ -16,11 +30,24 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
+      <Cover url={coverUrl} />
       <div className="flex flex-col px-24 py-10 w-full">
-        <TextareaAuthsize
-          placeholder="Untitled"
-          className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
-        />
+        <div className="group flex flex-col gap-2">
+          {!coverUrl && (
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+              <button
+                className="hover:bg-neutral-100 text-neutral-400 rounded-md px-3 py-1 transition-colors"
+                onClick={enableCover}
+              >
+                📎 Add cover
+              </button>
+            </div>
+          )}
+          <TextareaAuthsize
+            placeholder="Untitled"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+          />
+        </div>
         <Editor onChange={() => {}} />
       </div>
       {/* <TabeOfContents />
